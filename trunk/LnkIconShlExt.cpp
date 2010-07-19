@@ -1,4 +1,6 @@
 // LnkIconShlExt.cpp : Implementation of CLnkIconShlExt
+// the actual magic happens here, particularly in checkPidl() 
+//  procedure
 
 #include "stdafx.h"
 #include "resource.h"
@@ -14,11 +16,13 @@ BOOL checkPidl(PIDLIST_ABSOLUTE pidl)
 
 	SHITEMID *shi = (SHITEMID *)pidl;
 
+	// root (desktop?) guid
 	BYTE guid1[16] =  {
 		0xE0, 0x4F, 0xD0, 0x20, 0xEA, 0x3A, 0x69, 0x10,
 		0xA2, 0xD8, 0x08, 0x00, 0x2B, 0x30, 0x30, 0x9D 
 	};
 	
+	// control panel guid
 	BYTE guid2[16] = {
 		0x20, 0x20, 0xEC, 0x21, 0xEA, 0x3A, 0x69, 0x10,
 		0xA2, 0xDD, 0x08, 0x00, 0x2B, 0x30, 0x30, 0x9D 
@@ -124,12 +128,8 @@ STDMETHODIMP CLnkIconShlExt::Extract (
 	// not an approved link, don't extract anything
 	if(!m_bHasValidPidl) return S_FALSE;
 
-//	TCHAR buf[1000];
-//	_stprintf(buf, _T("Extract( %s, %d, %d )"), pszFile, nIconIndex, nIconSize);
-//	OutputDebugString(buf);
-
+	// otherwise call the original shell handler to do the job
 	IShellLink* psl; 
-
 	HRESULT hres = CoCreateInstance(CLSID_ShellLink, NULL, CLSCTX_INPROC_SERVER, 
                             IID_IShellLink, (LPVOID*)&psl);
     if (SUCCEEDED(hres)) 

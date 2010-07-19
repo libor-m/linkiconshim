@@ -1,10 +1,5 @@
 // LnkIconShim.cpp : Implementation of DLL Exports.
 
-
-// Note: Proxy/Stub Information
-//      To build a separate proxy/stub DLL, 
-//      run nmake -f LnkIconShimps.mk in the project directory.
-
 #include "stdafx.h"
 #include "resource.h"
 #include <initguid.h>
@@ -77,49 +72,7 @@ LONG lRet;
         if ( ERROR_SUCCESS != lRet )
             return HRESULT_FROM_WIN32(lRet);
         }
-/*
-    // Store the current DefaultIcon so we can restore it when we're 
-    // unregistered.  If there already is a backup of the DefaultIcon value,
-    // then do nothing.
-    // **NOTE**  In production code, you should not hardcode HKCR\txtfile
-    // as the key holding info on text files, but instead read the key name
-    // from the default value of HKCR\.txt to make your code robust.  I've
-    // hard-coded "txtfile" here for simplicity.
-    lRet = key.Open ( HKEY_CLASSES_ROOT, _T("lnkfile\\DefaultIcon"), 
-                      KEY_QUERY_VALUE | KEY_SET_VALUE );
 
-    if ( ERROR_SUCCESS == lRet )
-        {
-        TCHAR szOldDefIcon[2*MAX_PATH];
-        DWORD dwSize = sizeof(szOldDefIcon);
-        DWORD dwType;
-
-        // Check if there's already a backup of the DefaultIcon value.
-		lRet = key.QueryStringValue ( szOldDefIcon, _T("OldDefIcon"), &dwSize );
-
-        if ( ERROR_SUCCESS != lRet )
-            {
-            // The OldDefIcon backup doesn't exist, so save the current value.
-            //
-            // Note that I'm using the registry APIs directly in order to handle
-            // any value type.  On Win2K the DefaultIcon value is of type
-            // REG_EXPAND_SZ, which CRegKey doesn't handle.  (It only handles
-            // REG_SZ and REG_DWORD.)
-            dwSize = sizeof(szOldDefIcon);
-
-            lRet = RegQueryValueEx ( key.m_hKey, NULL, NULL, &dwType,
-                                     (LPBYTE) szOldDefIcon, &dwSize );
-
-            if ( ERROR_SUCCESS == lRet )
-                {
-                RegSetValueEx ( key.m_hKey, _T("OldDefIcon"), 0, dwType, 
-                                (const BYTE*) szOldDefIcon, dwSize );
-                }
-            }
-
-        key.Close();
-        }
-*/
     // registers object, typelib and all interfaces in typelib
     return _Module.RegisterServer(false);
 }
@@ -145,44 +98,6 @@ LONG lRet;
             key.Close();
             }
         }
-/*
-    // Restore the old DefaultIcon value from the backup we made during
-    // registration.
-    // **NOTE**  In production code, you should not hardcode HKCR\txtfile
-    // as the key holding info on text files, but instead read the key name
-    // from the default value of HKCR\.txt to make your code robust.  I've
-    // hard-coded "txtfile" here for simplicity.
-    lRet = key.Open ( HKEY_CLASSES_ROOT, _T("lnkfile\\DefaultIcon"), 
-                      KEY_QUERY_VALUE | KEY_SET_VALUE );
 
-    if ( ERROR_SUCCESS == lRet )
-        {
-        TCHAR szOldDefIcon[2*MAX_PATH];
-        DWORD dwSize = sizeof(szOldDefIcon);
-        DWORD dwType;
-
-        // Check if there's already a backup of the DefaultIcon value.
-        //
-        // Note that I'm using the registry APIs directly in order to handle
-        // any value type.  On Win2K the DefaultIcon value is of type
-        // REG_EXPAND_SZ, which CRegKey doesn't handle.  (It only handles
-        // REG_SZ and REG_DWORD.)
-        lRet = RegQueryValueEx ( key.m_hKey, _T("OldDefIcon"), NULL, &dwType,
-                                 (LPBYTE) szOldDefIcon, &dwSize );
-
-        if ( ERROR_SUCCESS == lRet )
-            {
-            // The OldDefIcon backup exists, so write the contents back to the
-            // default value of the DefaultIcon key...
-            RegSetValueEx ( key.m_hKey, NULL, 0, dwType, 
-                            (const BYTE*) szOldDefIcon, dwSize );
-
-            // ...and get rid of the backup.
-            key.DeleteValue ( _T("OldDefIcon") );
-            }
-
-        key.Close();
-        }
-*/
     return _Module.UnregisterServer(false);
 }
