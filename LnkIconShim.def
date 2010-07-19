@@ -1,0 +1,9 @@
+; TxtFileIcons.def : Declares the module parameters.
+
+LIBRARY      "LnkIconShim.DLL"
+
+EXPORTS
+    DllCanUnloadNow     PRIVATE
+    DllGetClassObject   PRIVATE
+    DllRegisterServer   PRIVATE
+    DllUnregisterServer PRIVATE
