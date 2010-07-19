@@ -1,0 +1,20 @@
+# Microsoft Developer Studio Generated Dependency File, included by LnkIconShim.mak
+
+.\LnkIconShim.cpp : \
+	".\LnkIconShlExt.h"\
+	".\StdAfx.h"\
+	
+
+.\LnkIconShim.rc : \
+	".\res\LnkIconShlExt.rgs"\
+	".\res\stop.ico"\
+	
+
+.\LnkIconShlExt.cpp : \
+	".\LnkIconShlExt.h"\
+	".\StdAfx.h"\
+	
+
+.\StdAfx.cpp : \
+	".\StdAfx.h"\
+	
