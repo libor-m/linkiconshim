@@ -9,8 +9,12 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#define WINVER          0x0400
-#define _WIN32_WINNT    0x0400
+#ifndef WINVER
+#   define WINVER          0x0400
+#endif
+#ifndef _WIN32_WINNT
+#   define _WIN32_WINNT    0x0400
+#endif
 #define _ATL_APARTMENT_THREADED
 
 // ATL
@@ -21,6 +25,13 @@ extern CComModule _Module;
 
 // Win32
 #include <comdef.h>
+#if (_MSC_VER == 1400) // VS 2005 is missing some declarations/defines
+// comdef.h missing stuff
+struct __declspec(uuid("000214eb-0000-0000-c000-000000000046")) IExtractIconA;
+struct __declspec(uuid("000214fa-0000-0000-c000-000000000046")) IExtractIconW;
+// shtypes.h missing stuff
+#define PIDLIST_ABSOLUTE         LPITEMIDLIST
+#endif
 #include <shlobj.h>
 
 //{{AFX_INSERT_LOCATION}}
