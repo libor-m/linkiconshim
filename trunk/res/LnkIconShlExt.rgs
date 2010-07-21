@@ -12,7 +12,13 @@ HKCR
     }
     NoRemove lnkfile
     {
-        NoRemove DefaultIcon = s '%%1'
+        NoRemove ShellEx
+        {
+            ForceRemove IconHandler = s '{DF4F5AE4-E795-4C12-BC26-7726C27F71AE}'
+        }
+    }
+    NoRemove piffile
+    {
         NoRemove ShellEx
         {
             ForceRemove IconHandler = s '{DF4F5AE4-E795-4C12-BC26-7726C27F71AE}'
