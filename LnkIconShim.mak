@@ -29,6 +29,7 @@ NULL=
 NULL=nul
 !ENDIF 
 
+# *********************************************************************************
 !IF  "$(CFG)" == "LnkIconShim - Win32 Debug"
 
 OUTDIR=.\Debug
@@ -141,6 +142,7 @@ SOURCE="$(InputPath)"
 << 
 	
 
+# *********************************************************************************
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Unicode Debug"
 
 OUTDIR=.\DebugU
@@ -240,7 +242,7 @@ SOURCE="$(InputPath)"
 	echo regsvr32 exec. time > "$(OutDir)\regsvr32.trg" 
 << 
 	
-
+# *********************************************************************************
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Release MinSize"
 
 OUTDIR=.\ReleaseMinSize
@@ -338,7 +340,7 @@ SOURCE="$(InputPath)"
 	echo regsvr32 exec. time > "$(OutDir)\regsvr32.trg" 
 << 
 	
-
+# *********************************************************************************
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Release MinDependency"
 
 OUTDIR=.\ReleaseMinDependency
@@ -436,7 +438,7 @@ SOURCE="$(InputPath)"
 	echo regsvr32 exec. time > "$(OutDir)\regsvr32.trg" 
 << 
 	
-
+# *********************************************************************************
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Unicode Release MinSize"
 
 OUTDIR=.\ReleaseUMinSize
@@ -534,7 +536,7 @@ SOURCE="$(InputPath)"
 	echo regsvr32 exec. time > "$(OutDir)\regsvr32.trg" 
 << 
 	
-
+# *********************************************************************************
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Unicode Release MinDependency"
 
 OUTDIR=.\ReleaseUMinDependency
@@ -559,13 +561,14 @@ CLEAN :
 	-@erase ".\LnkIconShim.h"
 	-@erase ".\LnkIconShim.tlb"
 	-@erase ".\LnkIconShim_i.c"
+	-@erase ".\dlldata.c"
 	-@erase ".\ReleaseUMinDependency\regsvr32.trg"
 
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MT /W3 /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "_UNICODE" /D "_CRT_SECURE_NO_WARNINGS" /D "_CRT_NON_CONFORMING_SWPRINTFS" /Fp"$(INTDIR)\LnkIconShim.pch" /Yu"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MT /W3 /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "_UNICODE" /D "_CRT_SECURE_NO_WARNINGS" /D "_CRT_NON_CONFORMING_SWPRINTFS" /Fp"$(INTDIR)\LnkIconShim.pch" /Yu"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -651,37 +654,37 @@ SOURCE=.\LnkIconShim.cpp
 !IF  "$(CFG)" == "LnkIconShim - Win32 Debug"
 
 
-"$(INTDIR)\LnkIconShim.obj"	"$(INTDIR)\LnkIconShim.sbr" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch" ".\LnkIconShim.h" ".\LnkIconShim_i.c"
+"$(INTDIR)\LnkIconShim.obj"	"$(INTDIR)\LnkIconShim.sbr" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch" ".\LnkIconShim.h" ".\LnkIconShim_i.c" ".\LnkIconShim.h"
 
 
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Unicode Debug"
 
 
-"$(INTDIR)\LnkIconShim.obj" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch"
+"$(INTDIR)\LnkIconShim.obj" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch" ".\LnkIconShim.h"
 
 
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Release MinSize"
 
 
-"$(INTDIR)\LnkIconShim.obj" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch"
+"$(INTDIR)\LnkIconShim.obj" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch" ".\LnkIconShim.h"
 
 
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Release MinDependency"
 
 
-"$(INTDIR)\LnkIconShim.obj" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch"
+"$(INTDIR)\LnkIconShim.obj" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch" ".\LnkIconShim.h"
 
 
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Unicode Release MinSize"
 
 
-"$(INTDIR)\LnkIconShim.obj" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch"
+"$(INTDIR)\LnkIconShim.obj" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch" ".\LnkIconShim.h"
 
 
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Unicode Release MinDependency"
 
 
-"$(INTDIR)\LnkIconShim.obj" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch"
+"$(INTDIR)\LnkIconShim.obj" : $(SOURCE) "$(INTDIR)" "$(INTDIR)\LnkIconShim.pch" ".\LnkIconShim.h"
 
 
 !ENDIF 
@@ -850,7 +853,7 @@ CPP_SWITCHES=/nologo /MT /W3 /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDL
 
 !ELSEIF  "$(CFG)" == "LnkIconShim - Win32 Unicode Release MinDependency"
 
-CPP_SWITCHES=/nologo /MT /W3 /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "_UNICODE" /D "_CRT_SECURE_NO_WARNINGS" /D "_CRT_NON_CONFORMING_SWPRINTFS" /Fp"$(INTDIR)\LnkIconShim.pch" /Yc"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_SWITCHES=/nologo /MT /W3 /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "_UNICODE" /D "_CRT_SECURE_NO_WARNINGS" /D "_CRT_NON_CONFORMING_SWPRINTFS" /Fp"$(INTDIR)\LnkIconShim.pch" /Yc"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 "$(INTDIR)\StdAfx.obj"	"$(INTDIR)\LnkIconShim.pch" : $(SOURCE) "$(INTDIR)"
 	$(CPP) @<<
