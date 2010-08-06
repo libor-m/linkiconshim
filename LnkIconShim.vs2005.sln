@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LnkIconShim", "LnkIconShim.vs2005.vcproj", "{191477D1-F6A2-491E-A0F5-9F5C387C1ABD}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "setup", "msi\setup.wixproj", "{DD8CB6A4-211E-4AF7-BD22-C2C6A0D799AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -25,6 +27,15 @@ Global
 		{191477D1-F6A2-491E-A0F5-9F5C387C1ABD}.Release MinSize|Win32.Build.0 = Release MinSize|Win32
 		{191477D1-F6A2-491E-A0F5-9F5C387C1ABD}.Release MinSize|x64.ActiveCfg = Release MinSize|x64
 		{191477D1-F6A2-491E-A0F5-9F5C387C1ABD}.Release MinSize|x64.Build.0 = Release MinSize|x64
+		{DD8CB6A4-211E-4AF7-BD22-C2C6A0D799AF}.Debug|Win32.ActiveCfg = Debug|x86
+		{DD8CB6A4-211E-4AF7-BD22-C2C6A0D799AF}.Debug|x64.ActiveCfg = Debug|x64
+		{DD8CB6A4-211E-4AF7-BD22-C2C6A0D799AF}.Debug|x64.Build.0 = Debug|x64
+		{DD8CB6A4-211E-4AF7-BD22-C2C6A0D799AF}.Release MinDependency|Win32.ActiveCfg = Release|x86
+		{DD8CB6A4-211E-4AF7-BD22-C2C6A0D799AF}.Release MinDependency|x64.ActiveCfg = Release MinDependency|x64
+		{DD8CB6A4-211E-4AF7-BD22-C2C6A0D799AF}.Release MinDependency|x64.Build.0 = Release MinDependency|x64
+		{DD8CB6A4-211E-4AF7-BD22-C2C6A0D799AF}.Release MinSize|Win32.ActiveCfg = Release|x86
+		{DD8CB6A4-211E-4AF7-BD22-C2C6A0D799AF}.Release MinSize|x64.ActiveCfg = Release MinSize|x64
+		{DD8CB6A4-211E-4AF7-BD22-C2C6A0D799AF}.Release MinSize|x64.Build.0 = Release MinSize|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

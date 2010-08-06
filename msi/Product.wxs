@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?include constants.wxi ?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="$(var.ProductId)"
+             Name="$(var.ProductNameFull)"
+             Language="1033"
+             Version="$(var.ProductVersion)"
+             Manufacturer="$(var.Manufacturer)"
+             UpgradeCode="$(var.UpgradeCode)"
+             >
+		<Package Description="$(var.PkgDescription)"
+                 Keywords="$(var.PkgKeywords)"
+                 InstallerVersion="200"
+                 Compressed="yes"
+                 Languages="1033"
+                 SummaryCodepage="1252"
+                 InstallPrivileges="elevated"
+                 />
+
+		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+        <Condition Message="You need to be an administrator to install this product.">
+            Privileged
+        </Condition>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <!-- 32bit version is contained in both MSIs -->
+            <Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLLOCATION32" Name="$(var.ProductName)" ShortName="LnkIShim">
+                    <Component Id="INSTALLLOCATION32" Guid="$(var.InstallFolderGuid32)" Win64="no" DisableRegistryReflection="yes">
+                        <!-- Making sure we clean up after us -->
+                        <RemoveFolder Id="INSTALLLOCATION32" On="uninstall" />
+                        <!-- Need a keypath for this component -->
+                        <RegistryValue Root="HKLM" Key="Software\[ProductName]" Type="string" Value="" KeyPath='yes' />
+                    </Component>
+                    <Component Id="$(var.LnkIconShimName32)" Guid="$(var.ShellExtensionGuid32)" Win64="no" DisableRegistryReflection="yes">
+                        <!-- The shell extension -->
+                        <File Id="$(var.LnkIconShimName32)" Name="$(var.LnkIconShimName32)" DiskId="1" Source="bin\" KeyPath="yes" >
+                            <Class Id="$(var.LnkIconShimCLSID)"
+                                   Context="InprocServer32"
+                                   Description="$(var.Platform): $(var.PkgDescription)"
+                                   ThreadingModel="apartment"
+                                   >
+                            </Class>
+                        </File>
+                        <!-- Register the new replacement handler for PIF and LNK respectively -->
+                        <RegistryValue Action="write" Root="HKCR" Key="$(var.RegistryLnkFilePath)" Value="$(var.LnkIconShimCLSID)" Type="string" />
+                        <RegistryValue Action="write" Root="HKCR" Key="$(var.RegistryPifFilePath)" Value="$(var.LnkIconShimCLSID)" Type="string" />
+                    </Component>
+                </Directory>
+			</Directory>
+            <!-- 64bit version is contained only contained in the 64bit package -->
+            <?if $(var.Platform) = "x64" ?>
+            <Directory Id="ProgramFiles64Folder">
+                <Directory Id="INSTALLLOCATION64" Name="$(var.ProductName)" ShortName="LnkIShim">
+                    <Component Id="INSTALLLOCATION64" Guid="$(var.InstallFolderGuid64)" Win64="yes" DisableRegistryReflection="yes">
+                        <!-- Making sure we clean up after us -->
+                        <RemoveFolder Id="INSTALLLOCATION64" On="uninstall" />
+                        <!-- Need a keypath for this component -->
+                        <RegistryValue Root="HKLM" Key="Software\[ProductName]" Type="string" Value="" KeyPath='yes' />
+                    </Component>
+                    <Component Id="$(var.LnkIconShimName64)" Guid="$(var.ShellExtensionGuid64)" Win64="yes" DisableRegistryReflection="yes">
+                        <!-- The shell extension -->
+                        <File Id="$(var.LnkIconShimName64)" Name="$(var.LnkIconShimName64)" DiskId="1" Source="bin\" KeyPath="yes" >
+                            <Class Id="$(var.LnkIconShimCLSID)"
+                                   Context="InprocServer32"
+                                   Description="$(var.Platform): $(var.PkgDescription)"
+                                   ThreadingModel="apartment"
+                                           >
+                            </Class>
+                        </File>
+                        <!-- Register the new replacement handler for PIF and LNK respectively -->
+                        <RegistryValue Action="write" Root="HKCR" Key="$(var.RegistryLnkFilePath)" Value="$(var.LnkIconShimCLSID)" Type="string" />
+                        <RegistryValue Action="write" Root="HKCR" Key="$(var.RegistryPifFilePath)" Value="$(var.LnkIconShimCLSID)" Type="string" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <?endif ?>
+        </Directory>
+
+        <Feature Id="ProductFeature" Title="$(var.FullFeatureTitle)" Level="1">
+            <ComponentRef Id ="INSTALLLOCATION32"/>
+            <ComponentRef Id="$(var.LnkIconShimName32)" />
+            <?if $(var.Platform) = "x64" ?>
+                <ComponentRef Id="$(var.LnkIconShimName64)" />
+                <ComponentRef Id ="INSTALLLOCATION64"/>
+            <?endif ?>
+        </Feature>
+    </Product>
+</Wix>
