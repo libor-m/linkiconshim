@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <!-- Common defines -->
+    <?define SourceFolder           = ".\bin\" ?>
+    <?define ProductVersion         = "1.0.0.0" ?>
+    <?define Manufacturer           = "http://code.google.com/p/linkiconshim/" ?>
+    <?define RegistryLnkFilePath    = "lnkfile\shellex\IconHandler" ?>
+    <?define RegistryPifFilePath    = "piffile\shellex\IconHandler" ?>
+    <?define PkgDescription         = "Windows shell extension fixing the CVE-2010-2568 link file vulnerability" ?>
+    <?define PkgKeywords            = "CVE-2010-2568, fix, link file vulnerability, LNK, PIF, .lnk, .pif" ?>
+    <?define LnkIconShimCLSID       = "{DF4F5AE4-E795-4C12-BC26-7726C27F71AE}" ?>
+    <?define FullFeatureTitle       = "Replacement Icon Handler" ?>
+    <?define LnkIconShimName32      = "LnkIconShim32.dll" ?>
+    <?define LnkIconShimName64      = "LnkIconShim64.dll" ?>
+    <?define InstallFolderGuid32    = "380ee401-ce39-46cf-8666-f005bf4519d8" ?>
+    <?define InstallFolderGuid64    = "b3b899d4-a077-4965-b73e-cbc3829dcddc" ?>
+    <?define ShellExtensionGuid32   = "5a3635fb-ee4d-43ac-9b0c-b7110c7c37f4" ?>
+    <?define ShellExtensionGuid64   = "b17e3c9c-8ae9-40f5-8f72-dcd92e3f1a28" ?>
+    <?define ProductName            = "LinkIconShim" ?>
+    <?if $(var.Platform) = "x86" ?>
+        <!-- Specific to 32bit (x86) -->
+        <?define ProductId          = "68894155-4827-44b1-a80d-2850ad14a1f5" ?>
+        <?define ProductNameFull    = "$(var.ProductName) (32bit)" ?>
+        <?define UpgradeCode        = "4919faa1-0ac1-487e-b379-6edda3773ec1" ?>
+    <?elseif $(var.Platform) = "x64" ?>
+        <!-- Specific to 64bit (x64) -->
+        <?define ProductId          = "e69688d7-ad08-45e1-b72c-ede630308c1f" ?>
+        <?define ProductNameFull    = "$(var.ProductName) (64bit)" ?>
+        <?define UpgradeCode        = "380ee401-ce39-46cf-8666-f005bf4519d8" ?>
+    <?else ?>
+    <?endif ?>
+</Include>

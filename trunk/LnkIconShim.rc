@@ -73,8 +73,8 @@ BEGIN
             VALUE "FileDescription", "LnkIconShim Module\0"
             VALUE "FileVersion", "1, 0, 0, 1\0"
             VALUE "InternalName", "LnkIconShim\0"
-            VALUE "LegalCopyright", "Copyright 2000\0"
-            VALUE "OriginalFilename", "LnkIconShim.DLL\0"
+            VALUE "LegalCopyright", "Copyright (c) 2010 by Libor Morkovsky\0"
+            VALUE "OriginalFilename", "LnkIconShim.dll\0"
             VALUE "ProductName", "LnkIconShim Module\0"
             VALUE "ProductVersion", "1, 0, 0, 1\0"
             VALUE "OLESelfRegister", "\0"
@@ -117,5 +117,3 @@ END
 
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
-
-
